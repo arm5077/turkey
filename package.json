@@ -1,0 +1,16 @@
+{
+  "name": "mturk-survey-template",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "new": "node ./scripts/new"
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "prompts": "^2.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0"
+  }
+}
