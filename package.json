@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "new": "node ./scripts/new",
-    "configure": "node ./scripts/configure"
+    "configure": "node ./scripts/configure",
+    "listHITs": "node ./scripts/listHITs"
   },
   "dependencies": {
     "aws-sdk": "^2.802.0",

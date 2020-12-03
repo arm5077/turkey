@@ -1,5 +1,4 @@
-const getS3Object = require('../common/getS3Object');
-const S3 = getS3Object();
+const S3 = require('../common/getS3Object');
 
 module.exports = async (bucket) => {
 	const bucketsResponse = await S3.listBuckets().promise()
