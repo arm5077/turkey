@@ -3,8 +3,36 @@
 </head>
 
 <body>
+  <h1>In a fight between the superheroes Thor and Iron Man, who would win?</h1>
+  <form class='question' name='winner'>
+    <div>
+      <input type='radio' name='winner' value='Thor' id='Thor' />
+      <label for='Thor'>Thor</label>
+    </div>
+    <div>
+      <input type='radio' name='winner' value='Iron Man' id='Iron-Man' />
+      <label for='Iron-Man'>Iron Man</label>
+    </div>
+  </form>
+
+  <button id='send'>Submit</button>
 </body>
 
 <script type='text/javascript'>
+  document.querySelector('#send').addEventListener('click', () => {
+    let data = '';
+    const questions = document.querySelectorAll('.question');
+    questions.forEach(question => {
+      data += `${question.name}=${question[question.name].value}\n`
+    });
+
+    fetch('{{endpoint}}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: data
+    })
+  });
 </script>
 </html>
