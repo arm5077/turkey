@@ -4,9 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "new": "node ./scripts/new"
+    "new": "node ./scripts/new",
+    "configure": "node ./scripts/configure"
   },
   "dependencies": {
+    "aws-sdk": "^2.802.0",
+    "dotenv": "^8.2.0",
     "fs-extra": "^9.0.1",
     "prompts": "^2.4.0"
   },
