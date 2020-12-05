@@ -39,11 +39,15 @@ module.exports = async ({project, bucket}) => {
 	}).promise();
 
 	for(const p of filePaths) {
+		console.log(p);
 		const key = p.replace('projects/', '');
 		await S3.putObject({
+			ACL: 'public-read',
 			Bucket: bucket,
 			Key: key,
 			Body: fs.readFileSync(p),
 		}).promise();
 	}
+
+	return `https://${bucket}.s3.amazonaws.com/index.html`;
 };

@@ -1,9 +1,9 @@
 const replaceSubmitURL = require('./replaceSubmitURL');
 const post = require('./post');
 
-module.exports = async ({bucket, project, SUBMIT_URL}) => {
-	replaceSubmitURL({project, SUBMIT_URL});
-	await post({project, bucket});
+module.exports = async ({bucket, project, submitEndpoint}) => {
+	replaceSubmitURL({project, submitEndpoint});
+	const s3Endpoint = await post({project, bucket});
 	console.log('really done');
-	return;
+	return s3Endpoint;
 };
