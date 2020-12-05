@@ -6,15 +6,21 @@
   "scripts": {
     "new": "node ./scripts/new",
     "configure": "node ./scripts/configure",
-    "listHITs": "node ./scripts/listHITs"
+    "listHITs": "node ./scripts/listHITs",
+    "deploy": "node ./scripts/deploy"
   },
   "dependencies": {
     "aws-sdk": "^2.802.0",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.1",
-    "prompts": "^2.4.0"
+    "prompts": "^2.4.0",
+    "s3": "^4.4.0",
+    "yargs": "^16.1.1"
   },
   "devDependencies": {
     "eslint": "^7.14.0"
+  },
+  "resolutions": {
+    "graceful-fs": "4.x.x"
   }
 }

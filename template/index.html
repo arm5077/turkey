@@ -1,5 +1,6 @@
 <html>
 <head>
+  <script src="./submitURL.js"></script>
 </head>
 
 <body>
@@ -26,7 +27,7 @@
       data += `${question.name}=${question[question.name].value}\n`
     });
 
-    fetch('{{endpoint}}', {
+    fetch(submitURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'

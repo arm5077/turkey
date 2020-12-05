@@ -1,4 +1,4 @@
-const getPrompts = require('getPrompts');
+const getPrompts = require('./getPrompts');
 const createProjectFolder = require('./createProjectFolder');
 const createConfigFile = require('./createConfigFile');
 
