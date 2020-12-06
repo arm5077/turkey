@@ -7,7 +7,8 @@
     "new": "node ./scripts/new",
     "configure": "node ./scripts/configure",
     "listHITs": "node ./scripts/listHITs",
-    "deploy": "node ./scripts/deploy"
+    "deploy": "node ./scripts/deploy",
+    "details": "node ./scripts/details"
   },
   "dependencies": {
     "aws-sdk": "^2.802.0",

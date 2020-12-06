@@ -1,6 +1,8 @@
 const getHITList = require('../common/getHITList');
+const getEndpoints = require('../common/getEndpoints');
 
 (async () => {
-	const list = await getHITList();
-	console.log(list.join('\n'));
+	const {serviceEndpoint} = getEndpoints();
+	const list = await getHITList(serviceEndpoint);
+	console.log(list);
 })();
