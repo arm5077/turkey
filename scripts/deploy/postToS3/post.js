@@ -33,7 +33,7 @@ module.exports = async ({project, bucket}) => {
 		}
 	}).promise();
 
-	const res = await S3.deleteObject({
+	await S3.deleteObject({
 		Bucket: bucket,
 		Key: project
 	}).promise();
