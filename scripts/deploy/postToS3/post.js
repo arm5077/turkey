@@ -24,19 +24,23 @@ module.exports = async ({project, bucket}) => {
 		Prefix: project
 	}).promise();
 
-	await S3.deleteObjects({
-		Bucket: bucket,
-		Delete: {
-			Objects: itemsToDelete.Contents.map(item => ({
-				Key: item.Key
-			}))
-		}
-	}).promise();
+	console.log(itemsToDelete);
+	//
+	if(itemsToDelete.Contents.length > 0) {
+		await S3.deleteObjects({
+			Bucket: bucket,
+			Delete: {
+				Objects: itemsToDelete.Contents.map(item => ({
+					Key: item.Key
+				}))
+			}
+		}).promise();
 
-	await S3.deleteObject({
-		Bucket: bucket,
-		Key: project
-	}).promise();
+		await S3.deleteObject({
+			Bucket: bucket,
+			Key: project
+		}).promise();
+	}
 
 	for(const p of filePaths) {
 		console.log(p);
@@ -46,8 +50,9 @@ module.exports = async ({project, bucket}) => {
 			Bucket: bucket,
 			Key: key,
 			Body: fs.readFileSync(p),
+			ContentType: key.includes('index.html') ? 'text/html' : ''
 		}).promise();
 	}
 
-	return `https://${bucket}.s3.amazonaws.com/index.html`;
+	return `https://${bucket}.s3.amazonaws.com/${project}/index.html`;
 };

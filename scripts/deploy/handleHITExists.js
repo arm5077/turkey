@@ -17,7 +17,7 @@ module.exports = async (HITId, serviceEndpoint) => {
 		return false;
 	}
 
-	await deleteHIT({HITId: HITId, serviceEndpoint});
+	await deleteHIT({HITId, serviceEndpoint});
 
 	return true;
 };

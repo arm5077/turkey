@@ -1,14 +1,18 @@
 const prompts = require('prompts');
 const getHITList = require('../common/getHITList');
 const getEndpoints = require('../common/getEndpoints');
+const formatHITList = require('../common/formatHITList');
 
 module.exports = (async () => {
-	const {submitEndpoint, serviceEndpoint} = getEndpoints();
+	const {serviceEndpoint} = getEndpoints();
 	const HITList = await getHITList(serviceEndpoint);
-	const projectList = HITList.map(item => ({
-		title: `${item.Title} (${item.CreationTime})`,
-		value: item.HITId
-	}));
+
+	if(!HITList || HITList.length === 0){
+		console.log('No projects found!');
+		return;
+	}
+
+	const projectList = formatHITList(HITList);
 
 	const response = await prompts([{
 		type: 'select',
@@ -19,6 +23,7 @@ module.exports = (async () => {
 	]);
 
 	const selection = HITList.find(item => item.HITId === response.HITId);
+
 	const info = [
 		`Title: ${selection.Title}`,
 		`Description: ${selection.Description}`,

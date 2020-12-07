@@ -2,8 +2,10 @@ const getMTurkObject = require('../../common/getMTurkObject');
 
 module.exports = async ({s3Endpoint, serviceEndpoint, config}) => {
 	const mturk = getMTurkObject(serviceEndpoint);
+	console.log(s3Endpoint);
 	const params = {
 		AssignmentDurationInSeconds: 120,
+		AutoApprovalDelayInSeconds: 1,
 		Description: config.description,
 		LifetimeInSeconds: 259200,
 		Reward: config.reward,

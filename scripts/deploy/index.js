@@ -21,7 +21,6 @@ const getArgs = require('../common/getArgs');
 	const argv = getArgs();
 	const project = argv._[0] || await selectProject();
 	const projectConfig = getProjectConfig(project);
-
 	if (!await handleHITExists(projectConfig.HITId, serviceEndpoint)){
 		return;
 	}
@@ -35,7 +34,7 @@ const getArgs = require('../common/getArgs');
 	}
 
 	const s3Endpoint = await postToS3({bucket: globalConfig.bucket, project, submitEndpoint});
-
+	
 	const HITId = await launchMTurk({s3Endpoint, serviceEndpoint, config: projectConfig});
 	updateProjectConfig({project, configUpdates: {
 		HITId

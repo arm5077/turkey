@@ -14,26 +14,27 @@
       <input type='radio' name='winner' value='Iron Man' id='Iron-Man' />
       <label for='Iron-Man'>Iron Man</label>
     </div>
+    <div>
+      <input type='radio' name='winner' value='Dont know' id='Iron-Man' />
+      <label for='Iron-Man'>Don't know one or both of these heroes</label>
+    </div>
   </form>
-
   <button id='send'>Submit</button>
 </body>
 
 <script type='text/javascript'>
   document.querySelector('#send').addEventListener('click', () => {
-    let data = '';
-    const questions = document.querySelectorAll('.question');
-    questions.forEach(question => {
-      data += `${question.name}=${question[question.name].value}\n`
-    });
+    const formData = new FormData();
+    const url = new URL(window.location.href);
+    const assignmentId = url.searchParams.get('assignmentId');
+    formData.append('assignmentId', assignmentId);
 
-    fetch(submitURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: data
-    })
+    const form = document.querySelector('form');
+    form.action = (new URL('mturk/externalSubmit', url.searchParams.get('turkSubmitTo'))).href
+    form.method = 'post';
+    assignmentDiv = form.appendChild(document.createElement('div'));
+    assignmentDiv.innerHTML = `<input type="hidden" name="assignmentId" value="${assignmentId}" />`;
+    form.submit();
   });
 </script>
 </html>
