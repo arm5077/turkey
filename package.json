@@ -10,7 +10,8 @@
     "deploy": "node ./scripts/deploy",
     "details": "node ./scripts/details",
     "delete": "node ./scripts/delete",
-    "download": "node ./scripts/download"
+    "download": "node ./scripts/download",
+    "money": "node ./scripts/money"
   },
   "dependencies": {
     "aws-sdk": "^2.802.0",
