@@ -26,26 +26,41 @@ module.exports = (async () => {
 	}]);
 
 	const mturk = getMTurkObject(serviceEndpoint);
-	const data = await mturk.listAssignmentsForHIT({
-		HITId: response.HITId,
-	}).promise();
 
 	const exportData = [];
-	data.Assignments.forEach(assignment => {
-		if (!assignment.Answer){
-			return;
+	let moreData = true;
+	let NextToken = null;
+
+	while(moreData) {
+		console.log(NextToken);
+		const data = await mturk.listAssignmentsForHIT({
+			HITId: response.HITId,
+			NextToken,
+		}).promise();
+
+		if (!data.NextToken) {
+			moreData = false;
+		} else {
+			NextToken = data.NextToken;
 		}
-		const answerSets = convert.xml2js(assignment.Answer).elements;
-		answerSets.forEach(answerSet => {
-			answerSet.elements.forEach(answer => {
-				const key = answer.elements.find(a => a.name === 'QuestionIdentifier').elements[0].text;
-				const value = answer.elements.find(a => a.name !== 'QuestionIdentifier').elements[0].text;
-				exportData.push({
-					[key]: value
+
+		data.Assignments.forEach(assignment => {
+			if (!assignment.Answer){
+				return;
+			}
+			const answerSets = convert.xml2js(assignment.Answer).elements;
+			answerSets.forEach(answerSet => {
+				const exportObject = {};
+				answerSet.elements.forEach(answer => {
+					const key = answer.elements.find(a => a.name === 'QuestionIdentifier').elements[0].text;
+					const value = answer.elements.find(a => a.name !== 'QuestionIdentifier').elements[0].text;
+					exportObject[key] = value;
 				});
+				exportData.push(exportObject);
 			});
 		});
-	});
+	}
+
 	const csv = Papa.unparse(exportData);
 	fs.writeFileSync('export.csv', csv);
 	console.log('Data downloaded to export.csv!');
